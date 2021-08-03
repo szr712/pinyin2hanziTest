@@ -8,7 +8,7 @@ from utils.tone_equal import tone_equal
 import requests
 from pypinyin import Style, lazy_pinyin,pinyin
 
-proxies = {'https': 'http://127.0.0.1:7078' }
+# proxies = {'https': 'http://127.0.0.1:7078' }
 
 
 def requset_google(py_list, tones_list):
@@ -25,8 +25,10 @@ def requset_google(py_list, tones_list):
     flag = 1
     while flag:
         try:
+            # response = requests.post(
+            #     url='https://inputtools.google.com/request', data=data_dict, proxies=proxies)
             response = requests.post(
-                url='https://inputtools.google.com/request', data=data_dict, proxies=proxies)
+                url='https://inputtools.google.com/request', data=data_dict)
             flag = 0
         except Exception as e:
             traceback.print_exc()
