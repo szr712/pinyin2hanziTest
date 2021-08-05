@@ -34,7 +34,7 @@ def listener(predic, total_size, start, lock):
     now = start
     while 1:
         # print(time.time()-now)
-        if time.time()-now > 1:
+        if time.time()-now >30:
             now = time.time()
             lock.acquire()
             print("{}/{}, {:.2f}%, cost:{:.2f}m,rest:{:.2f}m".format(len(predic), total_size, float(len(predic)) /
