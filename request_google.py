@@ -25,8 +25,8 @@ def requset_google(py_list, tones_list):
     flag = 1
     while flag:
         try:
-          #  response = requests.post(
-         #       url='https://inputtools.google.com/request', data=data_dict, proxies=proxies)
+            # response = requests.post(
+            #    url='https://inputtools.google.com/request', data=data_dict, proxies=proxies)
             response = requests.post(
                 url='https://inputtools.google.com/request', data=data_dict)
             flag = 0
