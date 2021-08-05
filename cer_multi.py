@@ -117,7 +117,7 @@ if __name__ == "__main__":
         
             w=0
             n=0
-            for (key,value) in result:
+            for (key,value) in tqdm(result):
                 w+=key
                 n+=value
                 # print(n)
