@@ -45,7 +45,7 @@ def cer(r: list, h: list, result,record,lock,id):
 def listener(record,total,start,lock):
     now=start
     while total-len(record)>100:
-        if time.time()-now>1:
+        if time.time()-now>5:
             now=time.time()
             lock.acquire()
             print("{}/{}, {:.2f}%,cost:{:.2f}m,rest:{:.2f}m".format(len(record),total,len(record)/float(total)*100,(now-start)/60,(now-start)/60/(len(record)/float(total))-(now-start)/60))
@@ -111,4 +111,4 @@ if __name__ == "__main__":
                 w+=key
                 n+=value
                 # print(n)
-            print('{} \n,total char：{} CER: {:.3f}'.format(pre,n,w/float(n)))
+            print('{} \n total char：{} CER: {:.3f}'.format(pre,n,w/float(n)))
