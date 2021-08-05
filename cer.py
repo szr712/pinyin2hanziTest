@@ -47,5 +47,6 @@ if __name__=="__main__":
     #      print('pred: {}, gt: {}'.format(b, a))
 
     print('recpinyin2hanzi CER: {:.3f}'.format(cer(textList, preList)))
+    # print('recpinyin2hanzi CER: {:.3f}'.format(cer([""], [""])))
 
     

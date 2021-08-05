@@ -5,7 +5,7 @@ import multiprocess
 import math
 import time
 
-num_process = 128
+num_process = 64
 
 
 def cer(r: list, h: list, result,record,lock,id):
