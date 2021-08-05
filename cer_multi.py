@@ -38,18 +38,18 @@ def cer(r: list, h: list, result,record,lock,id):
                 insertion = d[i][j - 1] + 1
                 deletion = d[i - 1][j] + 1
                 d[i][j] = min(substitution, insertion, deletion)
-    # lock.acquire()       
+    lock.acquire()       
     result.append((d[len(r)][len(h)],float(len(r))))
-    # lock.release()
+    lock.release()
 
 def listener(record,total,start,lock):
     now=start
     while total-len(record)>100:
         if time.time()-now>1:
             now=time.time()
-            # lock.acquire()
-            print("{},{}".format(len(record),total))
-            # lock.release()
+            lock.acquire()
+            print("{}/{}, {:.2f}%,cost:{:.2f}m,rest:{:.2f}m".format(len(record),total,len(record)/float(total)*100,(now-start)/60,(now-start)/60/(len(record)/float(total))-(now-start)/60))
+            lock.release()
 
 
 def getList(fileList, dirPath):
@@ -111,4 +111,4 @@ if __name__ == "__main__":
                 w+=key
                 n+=value
                 # print(n)
-            print('{} CER: {:.3f}'.format(pre,w/float(n)))
+            print('{} \n,total char：{} CER: {:.3f}'.format(pre,n,w/float(n)))
