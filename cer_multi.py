@@ -49,6 +49,8 @@ def listener(record,total,start,lock):
             now=time.time()
             # lock.acquire()
             print("{}/{}, {:.2f}%,cost:{:.2f}m,rest:{:.2f}m".format(len(record),total,len(record)/float(total)*100,(now-start)/60,(now-start)/60/(len(record)/float(total))-(now-start)/60))
+            if len(record)==84952:
+                print(result)
             # lock.release()
 
 
