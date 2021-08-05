@@ -38,7 +38,7 @@ def listener(predic, total_size, start, lock):
             now = time.time()
             lock.acquire()
             print("{}/{}, {:.2f}%, cost:{:.2f}m,rest:{:.2f}m".format(len(predic), total_size, float(len(predic)) /
-                  total_size*100, (time.time()-start)/60, (time.time()-start)/60/(float(len(predic)/total_size))-(time.time()-start)))
+                  total_size*100, (time.time()-start)/60, (time.time()-start)/60/(float(len(predic)/total_size))-(time.time()-start)/60))
             lock.release()
         if total_size-len(predic) < 100:
             break
