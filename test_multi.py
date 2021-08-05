@@ -69,6 +69,11 @@ if __name__ == "__main__":
 
             task_list = []
 
+            p = multiprocess.Process(target=listener, args=(
+                predic, len(contents), start, lock))
+            task_list.append(p)
+            p.start()
+
             for i in range(num_process):    
                 tmp_data = dict(list(data.items())[
                                 i*batch_size:(i+1)*batch_size])
@@ -76,10 +81,6 @@ if __name__ == "__main__":
                     tmp_data, predic, textdic, lock, batch_size, start, i))
                 task_list.append(p)
                 p.start()
-            p = multiprocess.Process(target=listener, args=(
-                predic, len(contents), start, lock))
-            task_list.append(p)
-            p.start()
             for t in task_list:
                 t.join()
 
