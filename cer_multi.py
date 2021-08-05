@@ -12,7 +12,7 @@ def sub_process(textList,preList,result,record,lock,id):
         record.append(t)
         r = [x for x in t]
         h = [x for x in p]
-        cer(t,p,result,lock,id)
+        cer(r,h,result,lock,id)
 
 
 
