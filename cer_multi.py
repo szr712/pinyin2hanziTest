@@ -7,8 +7,16 @@ import time
 
 num_process = 128
 
+def sub_process(textList,preList,result,record,lock,id):
+    for t,p in zip(textList,preList):
+        record.append(t)
+        r = [x for x in t]
+        h = [x for x in p]
+        cer(t,p,result,lock,id)
 
-def cer(r: list, h: list, result,record,lock,id):
+
+
+def cer(r: list, h: list, result,lock,id):
     """
     Calculation of CER with Levenshtein distance.
     """
@@ -28,7 +36,6 @@ def cer(r: list, h: list, result,record,lock,id):
     for i in range(1, len(r) + 1):
         # lock.acquire()
         # print("{}:  {}".format(id,i))
-        record.append(i)
         # lock.release()
         for j in range(1, len(h) + 1):
             if r[i - 1] == h[j - 1]:
@@ -102,7 +109,7 @@ if __name__ == "__main__":
             for i in range(num_process):
                 tmp_pre = preList[i*batch_size:(i+1)*batch_size]
                 tmp_text = textList[i*batch_size:(i+1)*batch_size]
-                p = multiprocess.Process(target=cer, args=(tmp_text,tmp_pre,result,record,lock,i))
+                p = multiprocess.Process(target=sub_process, args=(tmp_text,tmp_pre,result,record,lock,i))
                 task_list.append(p)
                 p.start()
             for t in task_list:
