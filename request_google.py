@@ -34,9 +34,12 @@ def requset_google(py_list, tones_list):
             traceback.print_exc()
             print("Error")
             time.sleep(1)
-            
-    candidates = response.json()[1][0][1]
-    result = candidates[0]
+    try:        
+        candidates = response.json()[1][0][1]
+        result = candidates[0]
+    except:
+        print(response.json())
+        print(py_list)
 
     result_pinyin = pinyin(result, style=Style.TONE3)
     result_tones = [int(py[0][-1]) if py[0][-1].isdigit() else 0 for py in result_pinyin]
