@@ -26,10 +26,10 @@ def cer(r: list, h: list, result,record,lock,id):
     # computation
     # print("{}:start computation".format(id))
     for i in range(1, len(r) + 1):
-        lock.acquire()
+        # lock.acquire()
         # print("{}:  {}".format(id,i))
         record.append(i)
-        lock.release()
+        # lock.release()
         for j in range(1, len(h) + 1):
             if r[i - 1] == h[j - 1]:
                 d[i][j] = d[i - 1][j - 1]
@@ -38,18 +38,18 @@ def cer(r: list, h: list, result,record,lock,id):
                 insertion = d[i][j - 1] + 1
                 deletion = d[i - 1][j] + 1
                 d[i][j] = min(substitution, insertion, deletion)
-    lock.acquire()       
+    # lock.acquire()       
     result.append((d[len(r)][len(h)],float(len(r))))
-    lock.release()
+    # lock.release()
 
 def listener(record,total,start,lock):
     now=start
     while total-len(record)>100:
         if time.time()-now>5:
             now=time.time()
-            lock.acquire()
+            # lock.acquire()
             print("{}/{}, {:.2f}%,cost:{:.2f}m,rest:{:.2f}m".format(len(record),total,len(record)/float(total)*100,(now-start)/60,(now-start)/60/(len(record)/float(total))-(now-start)/60))
-            lock.release()
+            # lock.release()
 
 
 def getList(fileList, dirPath):
