@@ -74,7 +74,8 @@ if __name__ == "__main__":
     # for a,b in zip(textList,preList):
     #      print('pred: {}, gt: {}'.format(b, a))
 
-    for pre, text in zip(preFile, textFile):
+    for pre in preFile:
+        text=pre[:-7]+"_text.txt"
         preList = []
         textList = []
         with open(os.path.join("./preFile", pre), "r", encoding="utf-8") as fw:
@@ -84,7 +85,7 @@ if __name__ == "__main__":
 
         start =time.time()
 
-        print("fileName:{}".format(pre))
+        print("preFileName:{}\ntextFileName:{}".format(pre,text))
         with multiprocess.Manager() as m:
             result = m.list()
             record = m.list()
@@ -113,4 +114,4 @@ if __name__ == "__main__":
                 w+=key
                 n+=value
                 # print(n)
-            print('{} \n total char：{} CER: {:.3f}'.format(pre,n,w/float(n)))
+            print('{} \n total char：{} CER: {:.3f}'.format(pre[:-7],n,w/float(n)))
