@@ -15,7 +15,6 @@ def sub_process(textList,preList,result,record,lock,id):
         cer(r,h,result,lock,id)
 
 
-
 def cer(r: list, h: list, result,lock,id):
     """
     Calculation of CER with Levenshtein distance.
