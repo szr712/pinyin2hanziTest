@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="16b32ec3-34c5-419d-8937-8ece5c2a9d72" name="Eagle_Lab" url="http://10.214.199.207">
+        <fileTransfer host="10.214.199.207" port="22" rootFolder="/home/shaozhirui/workspace/test_googleAPI" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions controlEncoding="utf-8" dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
