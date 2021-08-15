@@ -43,7 +43,7 @@ def sub_process(data, predic, textdic, lock, resdic, newresdic, keyNouns, batch_
 
         lock.acquire()
         textdic[index] = "".join(wenzi)
-        predic[index] = pre
+        predic[index] = new
         if pre != "".join(wenzi):
             resdic[index] = (pre, "".join(wenzi))
         if pre != new:
