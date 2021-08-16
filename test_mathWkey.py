@@ -118,6 +118,9 @@ if __name__ == "__main__":
             with open(os.path.join("./preFile", file+"pre.txt"), 'w', encoding='utf-8') as f:
                 for key in tqdm(sorted(predic.keys())):
                     f.write(predic[key]+"\n")
+            with open(os.path.join("./newpre", file+"newpre.txt"), 'w', encoding='utf-8') as f:
+                for key in tqdm(sorted(newresdic.keys())):
+                    f.write(newresdic[key][0]+"\n")
             with open(os.path.join("./comparison", file+"_result.txt"), 'w', encoding='utf-8') as f:
                 for key in tqdm(sorted(resdic.keys())):
                     f.write(("pre:{}\ntar:{}\n\n").format(resdic[key][0], resdic[key][1]))
