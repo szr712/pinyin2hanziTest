@@ -16,7 +16,7 @@ num_process = 128
 testFilePath = "./testFile"
 
 
-def sub_process(data, predic, textdic, lock, resdic, newresdic, keyNouns, batch_size, start, id):
+def sub_process(data, predic, textdic, lock, resdic, newresdic, newpre, keyNouns, batch_size, start, id):
     convertor = Convertor()
     for i, (index, line) in enumerate(data.items()):
         # print(index)
@@ -43,7 +43,8 @@ def sub_process(data, predic, textdic, lock, resdic, newresdic, keyNouns, batch_
 
         lock.acquire()
         textdic[index] = "".join(wenzi)
-        predic[index] = new
+        predic[index] = pre
+        newpre[index] = new
         if pre != "".join(wenzi):
             resdic[index] = (pre, "".join(wenzi))
         if pre != new:
@@ -84,6 +85,7 @@ if __name__ == "__main__":
             textdic = m.dict()
             resdic = m.dict()
             newresdic = m.dict()
+            newpre = m.dict()
 
             with open(os.path.join(testFilePath, file), "r", encoding="utf-8") as fw:
                 contents = fw.readlines()
@@ -105,7 +107,7 @@ if __name__ == "__main__":
                 tmp_data = dict(list(data.items())[
                                 i*batch_size:(i+1)*batch_size])
                 p = multiprocess.Process(target=sub_process, args=(
-                    tmp_data, predic, textdic, lock, resdic, newresdic, keyNouns, batch_size, start, i))
+                    tmp_data, predic, textdic, lock, resdic, newresdic, newpre, keyNouns, batch_size, start, i))
                 task_list.append(p)
                 p.start()
             for t in task_list:
@@ -115,17 +117,23 @@ if __name__ == "__main__":
             with open(os.path.join("./textFile", file+"_text.txt"), 'w', encoding='utf-8') as f:
                 for key in tqdm(sorted(textdic.keys())):
                     f.write(textdic[key]+"\n")
+
             with open(os.path.join("./preFile", file+"pre.txt"), 'w', encoding='utf-8') as f:
                 for key in tqdm(sorted(predic.keys())):
                     f.write(predic[key]+"\n")
-            with open(os.path.join("./newpre", file+"newpre.txt"), 'w', encoding='utf-8') as f:
-                for key in tqdm(sorted(newresdic.keys())):
-                    f.write(newresdic[key][0]+"\n")
+
+            with open(os.path.join("./newpre", file+"new.txt"), 'w', encoding='utf-8') as f:
+                for key in tqdm(sorted(newpre.keys())):
+                    f.write(newpre[key]+"\n")
+
             with open(os.path.join("./comparison", file+"_result.txt"), 'w', encoding='utf-8') as f:
                 for key in tqdm(sorted(resdic.keys())):
-                    f.write(("pre:{}\ntar:{}\n\n").format(resdic[key][0], resdic[key][1]))
+                    f.write(("pre:{}\ntar:{}\n\n").format(
+                        resdic[key][0], resdic[key][1]))
+
             with open(os.path.join("./comparison", file+"_newresult.txt"), 'w', encoding='utf-8') as f:
                 for key in tqdm(sorted(newresdic.keys())):
                     f.write(("new:{}\npre:{}\ntar:{}\nkeyNouns{}\n\n").format(
                         newresdic[key][0], newresdic[key][1], newresdic[key][2], newresdic[key][3]))
+                        
             print("total time:{:.2f}m".format((time.time()-start)/60))
