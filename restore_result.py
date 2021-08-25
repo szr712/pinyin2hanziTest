@@ -67,23 +67,23 @@ def test_result_len_equal(preFileDir,textFileDir):
         
 
 if __name__=="__main__":
-    # test_result_len_equal("./preFile","./textFile")
-    for preFile in os.listdir("./preFile"):
-        with open(os.path.join("./preFile", preFile), "r", encoding="utf-8")as fw:
-            preContents = fw.readlines()
-        with open(os.path.join("./textFile", preFile[:-7]+"_text.txt"), "r", encoding="utf-8")as fw:
-            textContents = fw.readlines()
-        for pre,text in zip(preContents,textContents):
-            pre=pre.replace("\n", "")
-            oripre=pre
-            text=text.replace("\n", "")
+    test_result_len_equal("./preFile","./textFile")
+    # for preFile in os.listdir("./preFile"):
+    #     with open(os.path.join("./preFile", preFile), "r", encoding="utf-8")as fw:
+    #         preContents = fw.readlines()
+    #     with open(os.path.join("./textFile", preFile[:-7]+"_text.txt"), "r", encoding="utf-8")as fw:
+    #         textContents = fw.readlines()
+    #     for pre,text in zip(preContents,textContents):
+    #         pre=pre.replace("\n", "")
+    #         oripre=pre
+    #         text=text.replace("\n", "")
         # pre = "应满足饥饿的饥饿解你好啊"
         # print(pre)
         # text= "满足解的解解你还啊"
 
-            pre_pinyin, _ = wenzi2pinyin(pre)
-            text_pinyin,_=wenzi2pinyin(text)
-            pre=adjust_pre_len(pre_pinyin,text_pinyin,pre)
-            if len(pre_pinyin)!=len(text_pinyin):
-                print("text:{}\npre:{}\nori:{}".format(text,pre,oripre))
+            # pre_pinyin, _ = wenzi2pinyin(pre)
+            # text_pinyin,_=wenzi2pinyin(text)
+            # pre=adjust_pre_len(pre_pinyin,text_pinyin,pre)
+            # if len(pre_pinyin)!=len(text_pinyin):
+            #     print("text:{}\npre:{}\nori:{}".format(text,pre,oripre))
 
