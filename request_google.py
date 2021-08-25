@@ -1,3 +1,4 @@
+import re
 import time
 import traceback
 
@@ -14,7 +15,7 @@ proxies = {'https': 'http://127.0.0.1:7078'}
 def requset_google(py_list, tones_list):
     if not py_list:
         return ""
-    item_pinyin = "".join(str(v) for v in py_list)
+    item_pinyin = "\'".join(str(v) for v in py_list)
     data_dict = {
         'text': item_pinyin,
         'itc': "zh-t-i0-pinyin",
@@ -26,10 +27,10 @@ def requset_google(py_list, tones_list):
     flag = 1
     while flag != 0 and flag <= 10:
         try:
-            # response = requests.post(
-            #    url='https://inputtools.google.com/request', data=data_dict, proxies=proxies)
             response = requests.post(
-                url='https://inputtools.google.com/request', data=data_dict)
+               url='https://inputtools.google.com/request', data=data_dict, proxies=proxies)
+            # response = requests.post(
+            #     url='https://inputtools.google.com/request', data=data_dict)
             candidates = response.json()[1][0][1]
             result = candidates[0]
             result_pinyin = pinyin(result, style=Style.TONE3)
@@ -49,6 +50,7 @@ def requset_google(py_list, tones_list):
                             break
 
             flag = 0
+            result.replace("\'","")
         except Exception as e:
             flag += 1
             traceback.print_exc()
@@ -57,14 +59,18 @@ def requset_google(py_list, tones_list):
             if flag == 10:
                 return ""
             time.sleep(1)
+        
 
     return result + requset_google(py_list[len(result):], tones_list[len(result):])
 
 
 if __name__ == "__main__":
-    string = "究发现酸的浓度越大，产生气体的速度越快，与甲比较，对丁分析正确的是    （填编号）。"
+    string = "面积相当于大长方形面积的和小长方形面积的"
 
     pinyin_list, tones_list = wenzi2pinyin(string)
+    print(pinyin_list)
     # pinyin_list=['ben', 'ti', 'kao', 'cha', 'de', 'zhi', 'shi', 'dian', 'wei', 'lu', 'di', 'zi', 'ran', 'dai', 'de', 'fen', 'bu']
     # print(pinyin_list)
-    print(requset_google(pinyin_list, tones_list))
+    result=requset_google(pinyin_list, tones_list)
+    print(result)
+    print(len(string),len(result))

@@ -43,17 +43,17 @@ class Convertor:
 
         splitList = []
 
-        while len(oriList) > 30:
+        while len(oriList) > 20:
             i = 1
-            for i in range(1, 30):
-                if oriList[30-i] in string.punctuation or oriList[30-i] in punctuation:
+            for i in range(1, 20):
+                if oriList[20-i] in string.punctuation or oriList[20-i] in punctuation:
                     break
-            if i==29:
-                splitList.append(ishan(oriList[:30]))
-                oriList = oriList[30:]
+            if i==19:
+                splitList.append(ishan(oriList[:20]))
+                oriList = oriList[20:]
             else:
-                splitList.append(ishan(oriList[:31-i]))
-                oriList = oriList[31-i:]
+                splitList.append(ishan(oriList[:21-i]))
+                oriList = oriList[21-i:]
         splitList.append(ishan(oriList))
         
         for chip in splitList:
