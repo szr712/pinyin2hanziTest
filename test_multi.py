@@ -13,7 +13,7 @@ from Convertor import Convertor
 from request_google import requset_google
 import time
 
-num_process = 32
+num_process = 128
 testFilePath = "./testFile"
 
 
