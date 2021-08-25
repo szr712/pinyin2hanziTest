@@ -1,3 +1,8 @@
+"""
+多线程计算CER
+需比对文字放入preFile文件夹下
+原文放入textFile文件夹下
+"""
 import os
 import re
 from tqdm import tqdm

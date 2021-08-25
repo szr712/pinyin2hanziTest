@@ -1,4 +1,7 @@
-
+"""
+多进程测试Google API，带数学关键词
+关键词修正后的结果存在newpre
+"""
 import math
 import os
 import re

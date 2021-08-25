@@ -3,6 +3,14 @@ import string
 from utils.wenzi2pinyin import wenzi2pinyin
 
 def ishan(text):
+    """去除输入字符串中除中文字符串的内容
+
+    Args:
+        text (str): 字符串
+
+    Returns:
+        str: 去除非中文字符后的字符串
+    """
     # for python 3.x
     # sample: ishan('一') == True, ishan('我&&你') == False
 
@@ -17,6 +25,15 @@ class Convertor:
             self.yindiao = []
 
     def convert(self, oriList):
+        """将字符串转换成可请求的格式
+
+        Args:
+            oriList (str): 输入字符串
+
+        Returns:
+            list: 一个Sentence类的list，Sentence类内涵拼音及对应的音调
+            list: 去除输入字符串中非中文字符的list，list内每个元素长度小于30
+        """
 
         result=[]
 

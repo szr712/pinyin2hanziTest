@@ -1,6 +1,17 @@
 
 
 def findAll_keyNouns(pinyin, tones, subpinyin, subtones):
+    """匹配关键词拼音在拼音串中的所有位置
+
+    Args:
+        pinyin (str): 被匹配的拼音字符串
+        tones (list)): 被匹配的拼音串对应的音调
+        subpinyin (str): 需匹配的关键词拼音串
+        subtones (list): 需匹配的关键词拼音串对应的音调
+
+    Returns:
+        list: 所有匹配结果的起始下标
+    """
     index = []
     for i in range(0, len(pinyin)-len(subpinyin)+1):
         sub = pinyin[i:i+len(subpinyin)]
