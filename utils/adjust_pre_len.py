@@ -1,3 +1,5 @@
+from utils.wenzi2pinyin import wenzi2pinyin
+from Convertor import ishan
 import time
 import traceback
 import requests
@@ -9,6 +11,8 @@ proxies = {'https': 'http://127.0.0.1:7078'}
 def adjust_pre_len(pre_pinyin, text_pinyin, pre_result):
     try:
         flag=0
+        pre_result=ishan(pre_result) # 去除英文縮寫的影響
+        pre_pinyin,_=wenzi2pinyin(pre_result)
         if len(pre_pinyin) == len(text_pinyin):
             return pre_result
         differences = list(diff(pre_pinyin, text_pinyin))
