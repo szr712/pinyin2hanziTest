@@ -3,6 +3,8 @@
 """
 import math
 import os
+from utils.wenzi2pinyin import wenzi2pinyin
+from utils.adjust_pre_len import adjust_pre_len
 
 import multiprocess
 from tqdm import tqdm
@@ -22,8 +24,11 @@ def sub_process(data, predic, textdic, lock, batch_size, start, id):
         pinyin, wenzi = convertor.convert(line)
 
         pre = ""
-        for chip in pinyin:
+        for chip, text in zip(pinyin, wenzi):
             result = requset_google(chip.pinyin, chip.yindiao)
+            pre_pinyin, _ = wenzi2pinyin(result)
+            text_pinyin, _ = wenzi2pinyin(text)
+            result = adjust_pre_len(pre_pinyin, text_pinyin, result)
             pre += result
 
         lock.acquire()
@@ -37,7 +42,7 @@ def listener(predic, total_size, start, lock):
     now = start
     while 1:
         # print(time.time()-now)
-        if time.time()-now >30:
+        if time.time()-now > 30:
             now = time.time()
             lock.acquire()
             print("{}/{}, {:.2f}%, cost:{:.2f}m,rest:{:.2f}m".format(len(predic), total_size, float(len(predic)) /
@@ -77,7 +82,7 @@ if __name__ == "__main__":
             task_list.append(p)
             p.start()
 
-            for i in range(num_process):    
+            for i in range(num_process):
                 tmp_data = dict(list(data.items())[
                                 i*batch_size:(i+1)*batch_size])
                 p = multiprocess.Process(target=sub_process, args=(

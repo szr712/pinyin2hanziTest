@@ -1,3 +1,4 @@
+from Convertor import ishan
 import re
 import time
 import traceback
@@ -65,7 +66,7 @@ def requset_google(py_list, tones_list):
 
 
 if __name__ == "__main__":
-    string = "面积相当于大长方形面积的和小长方形面积的"
+    string = "底侧"
 
     pinyin_list, tones_list = wenzi2pinyin(string)
     print(pinyin_list)
